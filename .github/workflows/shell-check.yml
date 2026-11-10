@@ -1,0 +1,24 @@
+name: Shell checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Bash
+        run: bash -n install.sh bash/*.bash scripts/show_help.sh
+      - name: Install Fish
+        run: sudo apt-get update -qq && sudo apt-get install -y fish
+      - name: Check Fish
+        run: fish -n fish/conf.d/cloudmux.fish fish/functions/*.fish
+      - name: Check help output
+        run: |
+          output="$(bash scripts/show_help.sh)"
+          grep -Fq 'Alias / Function Name' <<< "$output"
+          grep -Fq 'gh-who' <<< "$output"
+          grep -Fq 'gc-who' <<< "$output"
+          grep -Fq 'az-who' <<< "$output"
