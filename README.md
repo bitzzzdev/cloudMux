@@ -21,14 +21,18 @@ From a checkout:
 
 The installer detects Termux or desktop Linux, checks all three CLIs, and asks before installing missing tools when a supported package manager is available. It creates links under `~/.config/cloudmux`, adds a Bash loader to `~/.bashrc.d`, and adds Fish functions to `~/.config/fish`.
 
-For a remote install, set the repository URL explicitly:
+For a remote install, download the installer and run it with the repository
+URL:
 
 ```bash
-CLOUDMUX_REPO_URL=https://github.com/OWNER/REPOSITORY.git \
-  curl -fsSL https://raw.githubusercontent.com/OWNER/REPOSITORY/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/bitzzdev/cloudMux/dev/install.sh \
+  -o /tmp/cloudmux-install.sh
+CLOUDMUX_REPO_URL=https://github.com/bitzzdev/cloudMux.git \
+  bash /tmp/cloudmux-install.sh
 ```
 
-Replace both placeholders with the real repository location. The installer will not guess or download from an unknown source.
+The installer clones only the repository named by `CLOUDMUX_REPO_URL`. Remove
+the downloaded script after installation if it is no longer needed.
 
 After installation, start a new shell or source the loader:
 
