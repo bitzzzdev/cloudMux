@@ -1,0 +1,22 @@
+stages:
+  - verify
+
+shell-checks:
+  stage: verify
+  image: debian:bookworm-slim
+  before_script:
+    - apt-get update --quiet
+    - apt-get install --quiet --yes --no-install-recommends bash fish
+  script:
+    - bash -n install.sh bash/*.bash scripts/show_help.sh
+    - fish -n fish/conf.d/cloudmux.fish fish/functions/*.fish
+    - |
+      output="$(bash scripts/show_help.sh)"
+      grep -Fq 'Alias / Function Name' <<< "$output"
+      grep -Fq 'gh-who' <<< "$output"
+      grep -Fq 'gc-who' <<< "$output"
+      grep -Fq 'az-who' <<< "$output"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "web"

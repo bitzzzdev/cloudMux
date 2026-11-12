@@ -24,10 +24,21 @@ The installer detects Termux or desktop Linux, checks all three CLIs, and asks b
 For a remote install, download the installer and run it with the repository
 URL:
 
+GitHub:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/bitzzdev/cloudMux/dev/install.sh \
   -o /tmp/cloudmux-install.sh
 CLOUDMUX_REPO_URL=https://github.com/bitzzdev/cloudMux.git \
+  bash /tmp/cloudmux-install.sh
+```
+
+GitLab:
+
+```bash
+curl -fsSL https://gitlab.com/bitzzdev/cloudMux/-/raw/dev/install.sh \
+  -o /tmp/cloudmux-install.sh
+CLOUDMUX_REPO_URL=https://gitlab.com/bitzzdev/cloudMux.git \
   bash /tmp/cloudmux-install.sh
 ```
 
